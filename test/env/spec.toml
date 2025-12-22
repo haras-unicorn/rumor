@@ -1,0 +1,51 @@
+#:schema ../../src/schema.json
+[[imports]]
+importer = "vault"
+arguments.path = "secret/env"
+arguments.allow_fail = true
+
+[[exports]]
+exporter = "vault"
+arguments.path = "secret/env"
+
+[[generations]]
+generator = "id"
+arguments.name = "id"
+arguments.length = 16
+
+[[generations]]
+generator = "id"
+arguments.name = "id2"
+arguments.length = 3
+arguments.renew = true
+
+[[generations]]
+generator = "env"
+
+[generations.arguments]
+name = "env"
+
+[generations.arguments.variables]
+ID = "id"
+ID2 = "id2"
+CUSTOM = "custom"
+
+[[generations]]
+generator = "age-key"
+
+[generations.arguments]
+public = "age.txt.pub"
+private = "age.txt"
+
+[[generations]]
+generator = "sops"
+
+[generations.arguments]
+age = "age.txt.pub"
+public = "sops.yaml.pub"
+private = "sops.yaml"
+
+[generations.arguments.secrets]
+id = "id"
+id2 = "id2"
+env = "env"

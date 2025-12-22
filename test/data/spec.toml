@@ -1,0 +1,73 @@
+#:schema ../../src/schema.json
+[[imports]]
+importer = "vault"
+arguments.path = "secret/data"
+arguments.allow_fail = true
+
+[[imports]]
+importer = "vault-file"
+arguments.path = "secret/other"
+arguments.file = "text"
+arguments.allow_fail = true
+
+[[exports]]
+exporter = "vault"
+arguments.path = "secret/data"
+
+[[exports]]
+exporter = "vault-file"
+arguments.path = "secret/other"
+arguments.file = "text"
+
+[[generations]]
+generator = "text"
+arguments.name = "text"
+arguments.text = "Text!"
+renew = true
+
+[[generations]]
+generator = "copy"
+arguments.from = "text"
+arguments.to = "text-copy"
+renew = true
+
+[[generations]]
+generator = "json"
+arguments.name = "json"
+arguments.value = { key = "value" }
+renew = true
+
+[[generations]]
+generator = "yaml"
+arguments.name = "yaml"
+arguments.value = ["value"]
+renew = true
+
+[[generations]]
+generator = "toml"
+arguments.name = "toml"
+arguments.value = { key = "value" }
+renew = true
+
+[[generations]]
+generator = "age-key"
+
+[generations.arguments]
+public = "age.txt.pub"
+private = "age.txt"
+
+[[generations]]
+generator = "sops"
+
+[generations.arguments]
+age = "age.txt.pub"
+public = "sops.yaml.pub"
+private = "sops.yaml"
+renew = true
+
+[generations.arguments.secrets]
+text = "text"
+text-copy = "text-copy"
+json = "json"
+yaml = "yaml"
+toml = "toml"

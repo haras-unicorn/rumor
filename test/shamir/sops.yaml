@@ -1,0 +1,7 @@
+id: "[a-zA-Z0-9]{16}"
+id-split-0: "[-a-zA-Z0-9]+"
+id-split-1: "[-a-zA-Z0-9]+"
+id-split-2: "[-a-zA-Z0-9]+"
+id-split-3: "[-a-zA-Z0-9]+"
+id-split-4: "[-a-zA-Z0-9]+"
+id-combined: "[a-zA-Z0-9]{16}"

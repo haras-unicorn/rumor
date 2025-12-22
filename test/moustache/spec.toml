@@ -1,0 +1,56 @@
+#:schema ../../src/schema.json
+[[imports]]
+importer = "vault"
+arguments.path = "secret/moustache"
+arguments.allow_fail = true
+
+[[exports]]
+exporter = "vault"
+arguments.path = "secret/moustache"
+
+[[generations]]
+generator = "id"
+arguments.name = "id"
+arguments.length = 16
+
+[[generations]]
+generator = "id"
+arguments.name = "id2"
+arguments.length = 3
+arguments.renew = true
+
+[[generations]]
+generator = "moustache"
+
+[generations.arguments]
+name = "moustache"
+template = """
+ID is {{ID}}
+ID2 is {{ID2}}
+CUSTOM is {{CUSTOM}}
+"""
+
+[generations.arguments.variables]
+ID = "id"
+ID2 = "id2"
+CUSTOM = "custom"
+
+[[generations]]
+generator = "age-key"
+
+[generations.arguments]
+public = "age.txt.pub"
+private = "age.txt"
+
+[[generations]]
+generator = "sops"
+
+[generations.arguments]
+age = "age.txt.pub"
+public = "sops.yaml.pub"
+private = "sops.yaml"
+
+[generations.arguments.secrets]
+id = "id"
+id2 = "id2"
+moustache = "moustache"

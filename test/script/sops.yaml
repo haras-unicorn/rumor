@@ -1,0 +1,14 @@
+key-script: |-
+  def main [renew: bool]: nothing -> nothing {
+    let key = (openssl genpkey -algorithm RSA)
+    if $renew {
+      $key | save -f "key"
+    } else {
+      $key | try { save "key" }
+    }
+    chmod 600 "key"
+  }
+key: |-
+  -----BEGIN PRIVATE KEY-----
+  ([A-Za-z0-9+/=]{64}\n)*[A-Za-z0-9+/=]{1,64}
+  -----END PRIVATE KEY-----

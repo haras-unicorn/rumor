@@ -1,0 +1,9 @@
+id: "[a-zA-Z0-9]{16}"
+id2: "[a-zA-Z0-9]{3}"
+id3: "[a-zA-Z0-9]{10}"
+key: "[a-zA-Z0-9]{5}"
+pin: "[0-9]{4}"
+pass-priv: "[0-9a-zA-Z]{7}"
+pass-pub: '^\$argon2id\$v=\d+\$m=\d+,t=\d+,p=\d+\$[A-Za-z0-9./+]{59}\$[A-Za-z0-9./+]{43,64}$'
+pass-crypt-priv: "[0-9a-zA-Z]{7}"
+pass-crypt-pub: '\$y\$[A-Za-z0-9]{3}\$[A-Za-z0-9./]{22,32}\$[A-Za-z0-9./]{43,86}'

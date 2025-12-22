@@ -1,0 +1,1861 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Rumor spec schema",
+  "required": ["imports", "generations", "exports"],
+  "properties": {
+    "imports": {
+      "type": "array",
+      "title": "Imports to run",
+      "items": {
+        "type": "object",
+        "title": "Import to run",
+        "required": ["importer"],
+        "properties": {
+          "importer": {
+            "type": "string",
+            "enum": ["vault", "vault-file", "copy"],
+            "title": "Type of importer"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "importer": {
+                  "const": "vault"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Vault importer arguments",
+                  "required": ["path"],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "title": "Path where to load generations from"
+                    },
+                    "allow_fail": {
+                      "type": "boolean",
+                      "title": "Allow failing to load generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "importer": {
+                  "const": "vault-file"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Vault file importer arguments",
+                  "required": ["path", "file"],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "title": "Path where to load generations from",
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._+=%,/-]{0,254}$"
+                    },
+                    "file": {
+                      "type": "string",
+                      "title": "File to load from generation",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "allow_fail": {
+                      "type": "boolean",
+                      "title": "Allow failing to load generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "importer": {
+                  "const": "copy"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Copy importer arguments",
+                  "required": ["from", "to"],
+                  "properties": {
+                    "from": {
+                      "type": "string",
+                      "title": "From where to copy the generation file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "to": {
+                      "type": "string",
+                      "title": "Where to put the generation file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "allow_fail": {
+                      "type": "boolean",
+                      "title": "Allow failing to load generations"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "generations": {
+      "type": "array",
+      "title": "Generations to run",
+      "items": {
+        "type": "object",
+        "title": "Generation to run",
+        "required": ["generator"],
+        "properties": {
+          "generator": {
+            "type": "string",
+            "enum": [
+              "copy",
+              "text",
+              "json",
+              "yaml",
+              "toml",
+              "id",
+              "key",
+              "key-split",
+              "key-combine",
+              "pin",
+              "password",
+              "password-crypt-3",
+              "age-key",
+              "ssh-key",
+              "tls-root",
+              "tls-intermediary",
+              "tls-leaf",
+              "tls-rsa-root",
+              "tls-rsa-intermediary",
+              "tls-rsa-leaf",
+              "tls-dhparam",
+              "nebula-ca",
+              "nebula-cert",
+              "cockroach-ca",
+              "cockroach-node-cert",
+              "cockroach-client-cert",
+              "env",
+              "moustache",
+              "script",
+              "sops"
+            ],
+            "title": "Type of generator"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "copy"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Copy generator arguments",
+                  "required": ["from", "to"],
+                  "properties": {
+                    "from": {
+                      "type": "string",
+                      "title": "From where to copy to copy the generation file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "to": {
+                      "type": "string",
+                      "title": "Where to copy to copy the generation file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the copied to file be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "text"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Text generator arguments",
+                  "required": ["name", "text"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to put the text file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "text": {
+                      "type": "string",
+                      "title": "Text file contents",
+                      "maxLength": 65535
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the text file be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "json"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Json generator arguments",
+                  "required": ["name", "value"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to put the json file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "value": {
+                      "type": ["array", "object"],
+                      "title": "Json file contents"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the json file be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "yaml"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Yaml generator arguments",
+                  "required": ["name", "value"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to put the yaml file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "value": {
+                      "type": ["array", "object"],
+                      "title": "Yaml file contents"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the yaml file be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "toml"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Toml generator arguments",
+                  "required": ["name", "value"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to put the toml file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "value": {
+                      "type": "object",
+                      "title": "Toml file contents (NOTE: toml doesn't support top-level arrays)"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the toml file be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "id"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Id generator arguments",
+                  "required": ["name"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to save the id",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "length": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "Length of id"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the id be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "key"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Key generator arguments",
+                  "required": ["name"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to save the key",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "length": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "Length of key"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the key be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "key-split"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Key split generator arguments",
+                  "required": ["key", "prefix", "shares", "threshold"],
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "title": "Name of the key to split",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "prefix": {
+                      "type": "string",
+                      "title": "Prefix for the shares which will get appended with share index like so: <prefix>-<index>",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "shares": {
+                      "type": "integer",
+                      "minimum": 2,
+                      "title": "Number of shares to generate"
+                    },
+                    "threshold": {
+                      "type": "integer",
+                      "minimum": 2,
+                      "title": "Threshold of shares to combine to get the key back"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the shares be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "key-combine"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Key combine generator arguments",
+                  "required": ["key", "shares", "threshold"],
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "title": "Name of the key that will be combined",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "shares": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      },
+                      "title": "Names of shares to combine"
+                    },
+                    "threshold": {
+                      "type": "integer",
+                      "minimum": 2,
+                      "title": "Threshold of shares to combine to get the key back"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the key be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "pin"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Pin generator arguments",
+                  "required": ["name"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to save the pin",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "length": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "Length of the pin"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the pin be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "password"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Password generator arguments",
+                  "required": ["private", "public"],
+                  "properties": {
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the cleartext password",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the encrypted password",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "length": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "Length of the password"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the password be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "password-crypt-3"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "crypt(3) compatible password generator arguments",
+                  "required": ["private", "public"],
+                  "properties": {
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the cleartext password",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the encrypted password",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "length": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "Length of the password"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the password be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "age-key"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Age generator arguments",
+                  "required": ["private", "public"],
+                  "properties": {
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private age key part",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public age key part",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the age key be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "ssh-key"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "SSH key generator arguments",
+                  "required": ["name", "private", "public"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Name (comment) of the ssh key",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private ssh key part",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public ssh key part",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the ssh key be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "tls-root"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "TLS root CA generator arguments",
+                  "required": [
+                    "common_name",
+                    "organization",
+                    "config",
+                    "public",
+                    "private"
+                  ],
+                  "properties": {
+                    "common_name": {
+                      "type": "string",
+                      "title": "The certificates common name",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ .'-]+$",
+                      "examples": ["Luna", "Mr. Whiskers", "Milo", "O’Malley"]
+                    },
+                    "organization": {
+                      "type": "string",
+                      "title": "Organization or company name associated with the certificate",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ0-9 .,'&()-]+$",
+                      "examples": [
+                        "Acme Corp",
+                        "Globex, Inc.",
+                        "O’Malley & Sons",
+                        "Green Energy Group"
+                      ]
+                    },
+                    "config": {
+                      "type": "string",
+                      "title": "Path where to save the CA config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "pathlen": {
+                      "type": "integer",
+                      "title": "Maximum length of certificate chain",
+                      "minimum": 0
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "For how many days should the CA be valid"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the CA be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "tls-intermediary"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "TLS intermediary CA generator arguments",
+                  "required": [
+                    "common_name",
+                    "organization",
+                    "ca_public",
+                    "ca_private",
+                    "request",
+                    "serial",
+                    "config",
+                    "request_config",
+                    "public",
+                    "private"
+                  ],
+                  "properties": {
+                    "ca_public": {
+                      "type": "string",
+                      "title": "Where to load the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "ca_private": {
+                      "type": "string",
+                      "title": "Where to load the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "request": {
+                      "type": "string",
+                      "title": "Path where to save the certificate request.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "serial": {
+                      "type": "string",
+                      "title": "Where to save the serial number",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "common_name": {
+                      "type": "string",
+                      "title": "The certificates common name",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ .'-]+$",
+                      "examples": ["Luna", "Mr. Whiskers", "Milo", "O’Malley"]
+                    },
+                    "organization": {
+                      "type": "string",
+                      "title": "Organization or company name associated with the certificate",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ0-9 .,'&()-]+$",
+                      "examples": [
+                        "Acme Corp",
+                        "Globex, Inc.",
+                        "O’Malley & Sons",
+                        "Green Energy Group"
+                      ]
+                    },
+                    "config": {
+                      "type": "string",
+                      "title": "Path where to save the CA config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "request_config": {
+                      "type": "string",
+                      "title": "Path where to safe the certificate request config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "pathlen": {
+                      "type": "integer",
+                      "title": "Maximum length of certificate chain",
+                      "minimum": 0
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "For how many days should the CA be valid"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the CA be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "tls-leaf"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "TLS leaf certificate generator arguments",
+                  "required": [
+                    "common_name",
+                    "organization",
+                    "ca_public",
+                    "ca_private",
+                    "request",
+                    "serial",
+                    "config",
+                    "request_config",
+                    "public",
+                    "private",
+                    "sans"
+                  ],
+                  "properties": {
+                    "common_name": {
+                      "type": "string",
+                      "title": "The certificates common name",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ .'-]+$",
+                      "examples": ["Luna", "Mr. Whiskers", "Milo", "O’Malley"]
+                    },
+                    "organization": {
+                      "type": "string",
+                      "title": "Organization or company name associated with the certificate",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ0-9 .,'&()-]+$",
+                      "examples": [
+                        "Acme Corp",
+                        "Globex, Inc.",
+                        "O’Malley & Sons",
+                        "Green Energy Group"
+                      ]
+                    },
+                    "sans": {
+                      "type": "array",
+                      "title": "List of DNS names or IP addresses to include in the certificate",
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "anyOf": [
+                          {
+                            "pattern": "^(\\*\\.)?[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$"
+                          },
+                          {
+                            "pattern": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}$"
+                          }
+                        ]
+                      },
+                      "examples": [
+                        [
+                          "example.com",
+                          "*.example.org",
+                          "api.example.com",
+                          "192.168.1.10"
+                        ]
+                      ]
+                    },
+                    "ca_public": {
+                      "type": "string",
+                      "title": "Where to load the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "ca_private": {
+                      "type": "string",
+                      "title": "Where to load the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "serial": {
+                      "type": "string",
+                      "title": "Where to save the serial number",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "request": {
+                      "type": "string",
+                      "title": "Path where to save the certificate request.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "request_config": {
+                      "type": "string",
+                      "title": "Path where to safe the certificate request config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "config": {
+                      "type": "string",
+                      "title": "Path where to safe the certificate config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "For how many days should the certificate be valid"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the certificate be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "tls-rsa-root"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "TLS RSA root CA generator arguments",
+                  "required": [
+                    "common_name",
+                    "organization",
+                    "config",
+                    "public",
+                    "private"
+                  ],
+                  "properties": {
+                    "common_name": {
+                      "type": "string",
+                      "title": "The certificates common name",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ .'-]+$",
+                      "examples": ["Luna", "Mr. Whiskers", "Milo", "O’Malley"]
+                    },
+                    "organization": {
+                      "type": "string",
+                      "title": "Organization or company name associated with the certificate",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ0-9 .,'&()-]+$",
+                      "examples": [
+                        "Acme Corp",
+                        "Globex, Inc.",
+                        "O’Malley & Sons",
+                        "Green Energy Group"
+                      ]
+                    },
+                    "config": {
+                      "type": "string",
+                      "title": "Path where to save the CA config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "pathlen": {
+                      "type": "integer",
+                      "title": "Maximum length of certificate chain",
+                      "minimum": 0
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "For how many days should the CA be valid"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the CA be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "tls-rsa-intermediary"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "TLS RSA intermediary CA generator arguments",
+                  "required": [
+                    "common_name",
+                    "organization",
+                    "ca_public",
+                    "ca_private",
+                    "request",
+                    "serial",
+                    "config",
+                    "request_config",
+                    "public",
+                    "private"
+                  ],
+                  "properties": {
+                    "ca_public": {
+                      "type": "string",
+                      "title": "Where to load the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "ca_private": {
+                      "type": "string",
+                      "title": "Where to load the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "request": {
+                      "type": "string",
+                      "title": "Path where to save the certificate request.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "serial": {
+                      "type": "string",
+                      "title": "Where to save the serial number",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "common_name": {
+                      "type": "string",
+                      "title": "The certificates common name",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ .'-]+$",
+                      "examples": ["Luna", "Mr. Whiskers", "Milo", "O’Malley"]
+                    },
+                    "organization": {
+                      "type": "string",
+                      "title": "Organization or company name associated with the certificate",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ0-9 .,'&()-]+$",
+                      "examples": [
+                        "Acme Corp",
+                        "Globex, Inc.",
+                        "O’Malley & Sons",
+                        "Green Energy Group"
+                      ]
+                    },
+                    "config": {
+                      "type": "string",
+                      "title": "Path where to save the CA config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "request_config": {
+                      "type": "string",
+                      "title": "Path where to safe the CA request config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "pathlen": {
+                      "type": "integer",
+                      "title": "Maximum length of certificate chain",
+                      "minimum": 0
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "For how many days should the CA be valid"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the CA be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "tls-rsa-leaf"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "TLS RSA leaf certificate generator arguments",
+                  "required": [
+                    "common_name",
+                    "organization",
+                    "ca_public",
+                    "ca_private",
+                    "request",
+                    "serial",
+                    "config",
+                    "request_config",
+                    "public",
+                    "private",
+                    "sans"
+                  ],
+                  "properties": {
+                    "common_name": {
+                      "type": "string",
+                      "title": "The certificates common name",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ .'-]+$",
+                      "examples": ["Luna", "Mr. Whiskers", "Milo", "O’Malley"]
+                    },
+                    "organization": {
+                      "type": "string",
+                      "title": "Organization or company name associated with the certificate",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "^[A-Za-zÀ-ÖØ-öø-ÿ0-9 .,'&()-]+$",
+                      "examples": [
+                        "Acme Corp",
+                        "Globex, Inc.",
+                        "O’Malley & Sons",
+                        "Green Energy Group"
+                      ]
+                    },
+                    "sans": {
+                      "type": "array",
+                      "title": "List of DNS names or IP addresses to include in the certificate",
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "anyOf": [
+                          {
+                            "pattern": "^(\\*\\.)?[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$"
+                          },
+                          {
+                            "pattern": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}$"
+                          }
+                        ]
+                      },
+                      "examples": [
+                        [
+                          "example.com",
+                          "*.example.org",
+                          "api.example.com",
+                          "192.168.1.10"
+                        ]
+                      ]
+                    },
+                    "ca_public": {
+                      "type": "string",
+                      "title": "Where to load the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "ca_private": {
+                      "type": "string",
+                      "title": "Where to load the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "serial": {
+                      "type": "string",
+                      "title": "Where to save the serial number",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "request": {
+                      "type": "string",
+                      "title": "Path where to save the certificate request.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "config": {
+                      "type": "string",
+                      "title": "Path where to safe the certificate config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "request_config": {
+                      "type": "string",
+                      "title": "Path where to safe the certificate request config.",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "For how many days should the certificate be valid"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the certificate be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "tls-dhparam"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "TLS Diffie-Hellman parameter arguments",
+                  "required": ["name"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Name of the dhparam file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the dhparam be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "nebula-ca"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Nebula CA generator arguments",
+                  "required": ["name", "public", "private"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "CA name",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "title": "For how many days should the CA be valid"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the CA be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "nebula-cert"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Nebula certificate generator arguments",
+                  "required": [
+                    "ca_public",
+                    "ca_private",
+                    "name",
+                    "ip",
+                    "public",
+                    "private"
+                  ],
+                  "properties": {
+                    "ca_public": {
+                      "type": "string",
+                      "title": "Where to load the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "ca_private": {
+                      "type": "string",
+                      "title": "Where to load the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "name": {
+                      "type": "string",
+                      "title": "Certificate name",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "ip": {
+                      "type": "string",
+                      "title": "Certificate IP in CIDR form (ie. 10.8.0.1/24)",
+                      "pattern": "^[0-9./]{1,22}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the certificate be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "cockroach-ca"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "CockroachDB CA generator arguments",
+                  "required": ["public", "private"],
+                  "properties": {
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the CA be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "cockroach-node-cert"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "CockroachDB node certificate generator arguments",
+                  "required": [
+                    "ca_public",
+                    "ca_private",
+                    "hosts",
+                    "public",
+                    "private"
+                  ],
+                  "properties": {
+                    "ca_public": {
+                      "type": "string",
+                      "title": "Where to load the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "ca_private": {
+                      "type": "string",
+                      "title": "Where to load the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "hosts": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9:._/-]{1,64}$"
+                      },
+                      "title": "CockroachDB node IP/DNS names"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the certificate be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "cockroach-client-cert"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "CockroachDB client certificate generator arguments",
+                  "required": [
+                    "ca_public",
+                    "ca_private",
+                    "public",
+                    "private",
+                    "user"
+                  ],
+                  "properties": {
+                    "ca_public": {
+                      "type": "string",
+                      "title": "Where to load the public part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "ca_private": {
+                      "type": "string",
+                      "title": "Where to load the private part of the CA",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private part of the certificate",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "user": {
+                      "type": "string",
+                      "title": "CockroachDB user name",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the certificate be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "env"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Environment file generator arguments",
+                  "required": ["name", "variables"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to save the environment file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "variables": {
+                      "type": "object",
+                      "title": "Variables to insert into the environment file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the environment file be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "moustache"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Moustache template generator arguments",
+                  "required": ["name", "template", "variables"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to save the populated moustache template",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "template": {
+                      "type": "string",
+                      "title": "The moustache template"
+                    },
+                    "variables": {
+                      "type": "object",
+                      "title": "Variables to insert into the moustache template"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the file be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "script"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Script execution generator arguments",
+                  "required": ["name", "text"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Where to save the script text",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "text": {
+                      "type": "string",
+                      "title": "The script text in nushell"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the script be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "sops"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Sops generator arguments",
+                  "required": ["age", "public", "private", "secrets"],
+                  "properties": {
+                    "age": {
+                      "type": "string",
+                      "title": "Age key with which the secrets will be encrypted",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where the plaintext secrets will be stored",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "private": {
+                      "type": "string",
+                      "title": "Where the encrypted secrets will be stored",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "secrets": {
+                      "type": "object",
+                      "title": "Secrets to insert into the sops files"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the file be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "exports": {
+      "type": "array",
+      "title": "Exports to run",
+      "items": {
+        "type": "object",
+        "title": "Export to run",
+        "required": ["exporter"],
+        "properties": {
+          "exporter": {
+            "type": "string",
+            "enum": ["vault", "vault-file", "copy"],
+            "title": "Type of exporter"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "exporter": {
+                  "const": "vault"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Vault exporter arguments",
+                  "required": ["path"],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "title": "Path where to save generations file"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "exporter": {
+                  "const": "vault-file"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Vault file exporter arguments",
+                  "required": ["path", "file"],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "title": "Path where to save generations file",
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._+=%,/-]{0,254}$"
+                    },
+                    "file": {
+                      "type": "string",
+                      "title": "File to export",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "exporter": {
+                  "const": "copy"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Copy exporter arguments",
+                  "required": ["from", "to"],
+                  "properties": {
+                    "from": {
+                      "type": "string",
+                      "title": "From where to copy the generation file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "to": {
+                      "type": "string",
+                      "title": "Where to put the generation file",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

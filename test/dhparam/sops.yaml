@@ -1,0 +1,4 @@
+openssl-dhparam: |-
+  -----BEGIN DH PARAMETERS-----
+  ([A-Za-z0-9+/=]{64}\n)*[A-Za-z0-9+/=]{1,64}
+  -----END DH PARAMETERS-----

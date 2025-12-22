@@ -1,0 +1,6 @@
+id: "[a-zA-Z0-9]{16}"
+id2: "[a-zA-Z0-9]{3}"
+moustache: |-
+  ID is [a-zA-Z0-9]{16}
+  ID2 is [a-zA-Z0-9]{3}
+  CUSTOM is custom

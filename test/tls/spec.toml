@@ -1,0 +1,134 @@
+#:schema ../../src/schema.json
+[[imports]]
+importer = "vault"
+arguments.path = "secret/tls"
+arguments.allow_fail = true
+
+[[exports]]
+exporter = "vault"
+arguments.path = "secret/tls"
+
+[[generations]]
+generator = "tls-root"
+
+[generations.arguments]
+common_name = "ca"
+organization = "My PKI"
+config = "tls-ca-config"
+public = "tls-ca-pub"
+private = "tls-ca-priv"
+days = 3650
+renew = true
+
+[[generations]]
+generator = "tls-leaf"
+
+[generations.arguments]
+common_name = "server-cert"
+organization = "My PKI"
+sans = ["example.com", "api.example.com", "192.168.1.10"]
+ca_public = "tls-ca-pub"
+ca_private = "tls-ca-priv"
+serial = "tls-srl"
+request = "tls-server-req"
+config = "tls-server-config"
+request_config = "tls-server-request-config"
+public = "tls-server-pub"
+private = "tls-server-priv"
+days = 825
+renew = true
+
+[[generations]]
+generator = "tls-leaf"
+
+[generations.arguments]
+common_name = "client-cert"
+organization = "My PKI"
+sans = ["client.local"]
+ca_public = "tls-ca-pub"
+ca_private = "tls-ca-priv"
+serial = "tls-srl"
+request = "tls-client-req"
+config = "tls-client-config"
+request_config = "tls-client-request-config"
+public = "tls-client-pub"
+private = "tls-client-priv"
+days = 825
+renew = true
+
+[[generations]]
+generator = "tls-rsa-root"
+
+[generations.arguments]
+common_name = "ca"
+organization = "My PKI"
+config = "tls-rsa-ca-config"
+public = "tls-rsa-ca-pub"
+private = "tls-rsa-ca-priv"
+days = 3650
+renew = true
+
+[[generations]]
+generator = "tls-rsa-leaf"
+
+[generations.arguments]
+common_name = "server-cert"
+organization = "My PKI"
+sans = ["example.com", "*.example.org", "192.168.1.10"]
+ca_public = "tls-rsa-ca-pub"
+ca_private = "tls-rsa-ca-priv"
+serial = "tls-rsa-srl"
+request = "tls-rsa-server-req"
+config = "tls-rsa-server-config"
+request_config = "tls-rsa-server-request-config"
+public = "tls-rsa-server-pub"
+private = "tls-rsa-server-priv"
+days = 825
+renew = true
+
+[[generations]]
+generator = "tls-rsa-leaf"
+
+[generations.arguments]
+common_name = "client-cert"
+organization = "My PKI"
+sans = ["client.local"]
+ca_public = "tls-rsa-ca-pub"
+ca_private = "tls-rsa-ca-priv"
+serial = "tls-rsa-srl"
+request = "tls-rsa-client-req"
+config = "tls-rsa-client-config"
+request_config = "tls-rsa-client-request-config"
+public = "tls-rsa-client-pub"
+private = "tls-rsa-client-priv"
+days = 825
+renew = true
+
+[[generations]]
+generator = "age-key"
+
+[generations.arguments]
+public = "age.txt.pub"
+private = "age.txt"
+
+[[generations]]
+generator = "sops"
+
+[generations.arguments]
+age = "age.txt.pub"
+public = "sops.yaml.pub"
+private = "sops.yaml"
+
+[generations.arguments.secrets]
+tls-ca-pub = "tls-ca-pub"
+tls-ca-priv = "tls-ca-priv"
+tls-server-pub = "tls-server-pub"
+tls-server-priv = "tls-server-priv"
+tls-client-pub = "tls-client-pub"
+tls-client-priv = "tls-client-priv"
+tls-rsa-ca-pub = "tls-rsa-ca-pub"
+tls-rsa-ca-priv = "tls-rsa-ca-priv"
+tls-rsa-server-pub = "tls-rsa-server-pub"
+tls-rsa-server-priv = "tls-rsa-server-priv"
+tls-rsa-client-pub = "tls-rsa-client-pub"
+tls-rsa-client-priv = "tls-rsa-client-priv"

@@ -1,0 +1,8 @@
+text: "Text!"
+text-copy: "Text!"
+json: |-
+  {
+    "key": "value"
+  }
+yaml: "- value"
+toml: key = "value"

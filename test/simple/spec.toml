@@ -1,0 +1,103 @@
+#:schema ../../src/schema.json
+[[imports]]
+importer = "vault"
+arguments.path = "secret/simple"
+arguments.allow_fail = true
+
+[[imports]]
+importer = "vault-file"
+arguments.path = "secret/other"
+arguments.file = "id3"
+arguments.allow_fail = true
+
+[[exports]]
+exporter = "vault"
+arguments.path = "secret/simple"
+
+[[exports]]
+exporter = "vault-file"
+arguments.path = "secret/other"
+arguments.file = "id3"
+
+[[generations]]
+generator = "id"
+arguments.name = "id"
+arguments.length = 16
+
+[[generations]]
+generator = "id"
+arguments.name = "id2"
+arguments.length = 3
+
+[[generations]]
+generator = "id"
+arguments.name = "id3"
+arguments.length = 10
+renew = true
+
+[[generations]]
+generator = "key"
+arguments.name = "key"
+arguments.length = 5
+arguments.renew = true
+
+[[generations]]
+generator = "pin"
+arguments.name = "pin"
+arguments.length = 4
+
+[[generations]]
+generator = "password"
+
+[generations.arguments]
+private = "pass-priv"
+public = "pass-pub"
+length = 7
+renew = true
+
+[[generations]]
+generator = "password-crypt-3"
+
+[generations.arguments]
+private = "pass-crypt-priv"
+public = "pass-crypt-pub"
+length = 7
+renew = true
+
+[[generations]]
+generator = "ssh-key"
+
+[generations.arguments]
+name = "ssh"
+public = "ssh-pub"
+private = "ssh-priv"
+renew = true
+
+[[generations]]
+generator = "age-key"
+
+[generations.arguments]
+public = "age.txt.pub"
+private = "age.txt"
+
+[[generations]]
+generator = "sops"
+
+[generations.arguments]
+age = "age.txt.pub"
+public = "sops.yaml.pub"
+private = "sops.yaml"
+renew = true
+
+[generations.arguments.secrets]
+id = "id"
+id2 = "id2"
+id3 = "id3"
+key = "key"
+pin = "pin"
+pass-pub = "pass-pub"
+pass-priv = "pass-priv"
+pass-crypt-pub = "pass-crypt-pub"
+pass-crypt-priv = "pass-crypt-priv"
+ssh-pub = "ssh-pub"
+ssh-priv = "ssh-priv"

@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/streetsidesoftware/cspell/refs/heads/main/cspell.schema.json
+useGitignore: true
+version: "0.2"
+language: en
+ignorePaths:
+  - justfile
+  - flake.nix
+  - cspell.yaml
+  - docs/book.toml
+  - docs/book
+words:
+  - haras
+  - nushell
+  - justfile
+  - pkgs
+  - markdownlint
+  - nlohmann
+  - mkpasswd
+  - mdbook
+  - langservers
+  - taplo
+  - keygen
+  - genpkey
+  - acreateserial
+  - yescrypt
+  - nixpkgs
+  - nixfmt
+  - pueue
+  - pueued
+  - mktemp
+  - stdenv
+  - pname
+  - coreutils
+  - cockroachdb
+  - bwrap
+  - setuid
+  - extfile
+  - keyid
+  - diffie
+  - pkeyopt
+  - paramgen
+  - libargon
+  - shamir
+  - bubblewrap
+  - nosandbox

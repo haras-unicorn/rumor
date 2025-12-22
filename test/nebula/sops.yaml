@@ -1,0 +1,16 @@
+nebula-ca-pub: |-
+  -----BEGIN NEBULA CERTIFICATE V2-----
+  ([A-Za-z0-9+/=]{64}\n)*[A-Za-z0-9+/=]{1,64}
+  -----END NEBULA CERTIFICATE V2-----
+nebula-ca-priv: |-
+  -----BEGIN NEBULA ED25519 PRIVATE KEY-----
+  ([A-Za-z0-9+/=]{64}\n)*[A-Za-z0-9+/=]{1,64}
+  -----END NEBULA ED25519 PRIVATE KEY-----
+nebula-pub: |-
+  -----BEGIN NEBULA CERTIFICATE V2-----
+  ([A-Za-z0-9+/=]{64}\n)*[A-Za-z0-9+/=]{1,64}
+  -----END NEBULA CERTIFICATE V2-----
+nebula-priv: |-
+  -----BEGIN NEBULA X25519 PRIVATE KEY-----
+  ([A-Za-z0-9+/=]{64}\n)*[A-Za-z0-9+/=]{1,64}
+  -----END NEBULA X25519 PRIVATE KEY-----

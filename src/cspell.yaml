@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/streetsidesoftware/cspell/refs/heads/main/cspell.schema.json
+useGitignore: true
+version: "0.2"
+language: en
+overrides:
+  - filename: "schema.json"
+    ignoreWords:
+      - malley
+      - globex
+      - pathlen
+  - filename: "main.nu"
+    ignoreWords:
+      - pathlen
+      - prlimit
+      - tunables
+      - fsize
+      - nofile
+      - bubblewrap
+      - workdir
+      - clearenv
+      - tmpfs
+      - chdir
+      - realpath
+      - tmpfs
+      - alnum

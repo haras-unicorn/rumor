@@ -1,0 +1,52 @@
+#:schema ../../src/schema.json
+[[imports]]
+importer = "vault"
+arguments.path = "secret/shamir"
+arguments.allow_fail = true
+
+[[exports]]
+exporter = "vault"
+arguments.path = "secret/shamir"
+
+[[generations]]
+generator = "id"
+arguments.name = "id"
+arguments.length = 16
+
+[[generations]]
+generator = "key-split"
+arguments.key = "id"
+arguments.prefix = "id-split"
+arguments.shares = 5
+arguments.threshold = 3
+
+[[generations]]
+generator = "key-combine"
+arguments.key = "id-combined"
+arguments.shares = ["id-split-1", "id-split-2", "id-split-3"]
+arguments.threshold = 3
+
+[[generations]]
+generator = "age-key"
+
+[generations.arguments]
+public = "age.txt.pub"
+private = "age.txt"
+
+[[generations]]
+generator = "sops"
+
+[generations.arguments]
+age = "age.txt.pub"
+public = "sops.yaml.pub"
+private = "sops.yaml"
+renew = true
+
+[generations.arguments.secrets]
+id = "id"
+id-split-0 = "id-split-0"
+id-split-1 = "id-split-1"
+id-split-2 = "id-split-2"
+id-split-3 = "id-split-3"
+id-split-4 = "id-split-4"
+id-combined = "id-combined"
