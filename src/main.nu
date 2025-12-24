@@ -22,6 +22,7 @@ let tools = [
   dirname # NOTE: used by mo
   cat # NOTE: used by mo
   ssh-keygen
+  wg
   vault
   medusa
   argon2
@@ -810,6 +811,28 @@ def "main generate ssh-key" [
   let public_content = open --raw  $"($private)($tmp_suffix).pub"
   rm -f $"($private)($tmp_suffix)"
   rm -f $"($private)($tmp_suffix).pub"
+
+  $private_content | rumor save $private $renew
+  $public_content | rumor save $public $renew --public
+}
+
+# generate a WireGuard key pair and save public + private
+def "main generate wireguard-key" [
+  # path to save the private key
+  private: path,
+  # path to save the public key
+  public: path,
+  # overwrite destinations if they exist
+  --renew
+]: nothing -> nothing {
+  let private_content = (rumor exec tool
+    "generate wireguard-private"
+    wg genkey)
+
+  let public_content = ($private_content
+    | rumor exec tool
+        "generate wireguard-public"
+        wg pubkey)
 
   $private_content | rumor save $private $renew
   $public_content | rumor save $public $renew --public
@@ -1876,6 +1899,13 @@ def "rumor run generation" [
     }
   } else if $generation.generator == "ssh-key" {
     $args ++= [ ($generation.arguments.name) ]
+    $args ++= [ ($generation.arguments.public) ]
+    $args ++= [ ($generation.arguments.private) ]
+    if (($generation.arguments | get -o renew) != null
+      and $generation.arguments.renew) {
+      $args ++= [ --renew ]
+    }
+  } else if $generation.generator == "wireguard-key" {
     $args ++= [ ($generation.arguments.public) ]
     $args ++= [ ($generation.arguments.private) ]
     if (($generation.arguments | get -o renew) != null

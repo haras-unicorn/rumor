@@ -147,6 +147,19 @@ Generates an Ed25519 SSH key pair (ssh-keygen -a 100) and saves:
     Leave empty for no passphrase.
   - `renew` (`boolean`, `= false`): Overwrite existing files.
 
+## Wireguard Key
+
+Generates a Wireguard key pair and saves:
+
+- private key to `private`
+- public key to `public`
+
+- Type: `wireguard-key`
+- Arguments:
+  - `public` (`path`): Destination for the public key.
+  - `private` (`path`): Destination for the private key.
+  - `renew` (`boolean`, `= false`): Overwrite existing files.
+
 ## Key split
 
 Splits a key using Shamir secret sharing (via ssss-split) and writes each share

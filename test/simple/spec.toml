@@ -74,6 +74,14 @@ private = "ssh-priv"
 renew = true
 
 [[generations]]
+generator = "wireguard-key"
+
+[generations.arguments]
+public = "wireguard-pub"
+private = "wireguard-priv"
+renew = true
+
+[[generations]]
 generator = "age-key"
 
 [generations.arguments]
@@ -101,3 +109,5 @@ pass-crypt-pub = "pass-crypt-pub"
 pass-crypt-priv = "pass-crypt-priv"
 ssh-pub = "ssh-pub"
 ssh-priv = "ssh-priv"
+wireguard-pub = "wireguard-pub"
+wireguard-priv = "wireguard-priv"
