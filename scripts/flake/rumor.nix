@@ -26,6 +26,7 @@ in
       mkpasswd
       mo
       openssh
+      wireguard-tools
       vault
       vault-medusa
       coreutils

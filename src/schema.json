@@ -146,6 +146,7 @@
               "password-crypt-3",
               "age-key",
               "ssh-key",
+              "wireguard-key",
               "tls-root",
               "tls-intermediary",
               "tls-leaf",
@@ -681,6 +682,41 @@
                     "renew": {
                       "type": "boolean",
                       "title": "Should the ssh key be renewed upon subsequent generations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "generator": {
+                  "const": "wireguard-key"
+                }
+              }
+            },
+            "then": {
+              "required": ["arguments"],
+              "properties": {
+                "arguments": {
+                  "type": "object",
+                  "title": "Wireguard key generator arguments",
+                  "required": ["private", "public"],
+                  "properties": {
+                    "private": {
+                      "type": "string",
+                      "title": "Where to save the private wireguard key part",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "public": {
+                      "type": "string",
+                      "title": "Where to save the public wireguard key part",
+                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                    },
+                    "renew": {
+                      "type": "boolean",
+                      "title": "Should the wireguard key be renewed upon subsequent generations"
                     }
                   }
                 }

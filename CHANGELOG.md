@@ -7,10 +7,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2025-12-24
+
+### Added
+
+- wireguard generator
+
 ## [1.0.0] - 2025-12-22
 
 ### Added
 
 - everything
 
+[1.1.0]: https://github.com/haras-unicorn/rumor/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/haras-unicorn/rumor/releases/tag/1.0.0
