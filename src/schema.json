@@ -72,7 +72,7 @@
                     "file": {
                       "type": "string",
                       "title": "File to load from generation",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "allow_fail": {
                       "type": "boolean",
@@ -102,12 +102,12 @@
                     "from": {
                       "type": "string",
                       "title": "From where to copy the generation file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "to": {
                       "type": "string",
                       "title": "Where to put the generation file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "allow_fail": {
                       "type": "boolean",
@@ -187,12 +187,12 @@
                     "from": {
                       "type": "string",
                       "title": "From where to copy to copy the generation file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "to": {
                       "type": "string",
                       "title": "Where to copy to copy the generation file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -222,7 +222,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to put the text file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "text": {
                       "type": "string",
@@ -257,7 +257,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to put the json file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "value": {
                       "type": ["array", "object"],
@@ -291,7 +291,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to put the yaml file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "value": {
                       "type": ["array", "object"],
@@ -325,7 +325,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to put the toml file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "value": {
                       "type": "object",
@@ -359,7 +359,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to save the id",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "length": {
                       "type": "integer",
@@ -394,7 +394,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to save the key",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "length": {
                       "type": "integer",
@@ -429,12 +429,12 @@
                     "key": {
                       "type": "string",
                       "title": "Name of the key to split",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "prefix": {
                       "type": "string",
                       "title": "Prefix for the shares which will get appended with share index like so: <prefix>-<index>",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "shares": {
                       "type": "integer",
@@ -474,13 +474,13 @@
                     "key": {
                       "type": "string",
                       "title": "Name of the key that will be combined",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "shares": {
                       "type": "array",
                       "items": {
                         "type": "string",
-                        "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                        "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                       },
                       "title": "Names of shares to combine"
                     },
@@ -517,7 +517,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to save the pin",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "length": {
                       "type": "integer",
@@ -552,12 +552,12 @@
                     "private": {
                       "type": "string",
                       "title": "Where to save the cleartext password",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the encrypted password",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "length": {
                       "type": "integer",
@@ -592,12 +592,12 @@
                     "private": {
                       "type": "string",
                       "title": "Where to save the cleartext password",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the encrypted password",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "length": {
                       "type": "integer",
@@ -632,12 +632,12 @@
                     "private": {
                       "type": "string",
                       "title": "Where to save the private age key part",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public age key part",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -667,17 +667,17 @@
                     "name": {
                       "type": "string",
                       "title": "Name (comment) of the ssh key",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private ssh key part",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public ssh key part",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -707,12 +707,12 @@
                     "private": {
                       "type": "string",
                       "title": "Where to save the private wireguard key part",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public wireguard key part",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -769,17 +769,17 @@
                     "config": {
                       "type": "string",
                       "title": "Path where to save the CA config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "pathlen": {
                       "type": "integer",
@@ -830,22 +830,22 @@
                     "ca_public": {
                       "type": "string",
                       "title": "Where to load the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "ca_private": {
                       "type": "string",
                       "title": "Where to load the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "request": {
                       "type": "string",
                       "title": "Path where to save the certificate request.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "serial": {
                       "type": "string",
                       "title": "Where to save the serial number",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "common_name": {
                       "type": "string",
@@ -871,22 +871,22 @@
                     "config": {
                       "type": "string",
                       "title": "Path where to save the CA config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "request_config": {
                       "type": "string",
                       "title": "Path where to safe the certificate request config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "pathlen": {
                       "type": "integer",
@@ -984,42 +984,42 @@
                     "ca_public": {
                       "type": "string",
                       "title": "Where to load the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "ca_private": {
                       "type": "string",
                       "title": "Where to load the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "serial": {
                       "type": "string",
                       "title": "Where to save the serial number",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "request": {
                       "type": "string",
                       "title": "Path where to save the certificate request.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "request_config": {
                       "type": "string",
                       "title": "Path where to safe the certificate request config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "config": {
                       "type": "string",
                       "title": "Path where to safe the certificate config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "days": {
                       "type": "integer",
@@ -1081,17 +1081,17 @@
                     "config": {
                       "type": "string",
                       "title": "Path where to save the CA config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "pathlen": {
                       "type": "integer",
@@ -1142,22 +1142,22 @@
                     "ca_public": {
                       "type": "string",
                       "title": "Where to load the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "ca_private": {
                       "type": "string",
                       "title": "Where to load the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "request": {
                       "type": "string",
                       "title": "Path where to save the certificate request.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "serial": {
                       "type": "string",
                       "title": "Where to save the serial number",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "common_name": {
                       "type": "string",
@@ -1183,22 +1183,22 @@
                     "config": {
                       "type": "string",
                       "title": "Path where to save the CA config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "request_config": {
                       "type": "string",
                       "title": "Path where to safe the CA request config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "pathlen": {
                       "type": "integer",
@@ -1296,42 +1296,42 @@
                     "ca_public": {
                       "type": "string",
                       "title": "Where to load the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "ca_private": {
                       "type": "string",
                       "title": "Where to load the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "serial": {
                       "type": "string",
                       "title": "Where to save the serial number",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "request": {
                       "type": "string",
                       "title": "Path where to save the certificate request.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "config": {
                       "type": "string",
                       "title": "Path where to safe the certificate config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "request_config": {
                       "type": "string",
                       "title": "Path where to safe the certificate request config.",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "days": {
                       "type": "integer",
@@ -1366,7 +1366,7 @@
                     "name": {
                       "type": "string",
                       "title": "Name of the dhparam file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -1396,17 +1396,17 @@
                     "name": {
                       "type": "string",
                       "title": "CA name",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "days": {
                       "type": "integer",
@@ -1448,17 +1448,17 @@
                     "ca_public": {
                       "type": "string",
                       "title": "Where to load the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "ca_private": {
                       "type": "string",
                       "title": "Where to load the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "name": {
                       "type": "string",
                       "title": "Certificate name",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "ip": {
                       "type": "string",
@@ -1468,12 +1468,12 @@
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -1503,12 +1503,12 @@
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -1544,12 +1544,12 @@
                     "ca_public": {
                       "type": "string",
                       "title": "Where to load the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "ca_private": {
                       "type": "string",
                       "title": "Where to load the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "hosts": {
                       "type": "array",
@@ -1562,12 +1562,12 @@
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -1603,27 +1603,27 @@
                     "ca_public": {
                       "type": "string",
                       "title": "Where to load the public part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "ca_private": {
                       "type": "string",
                       "title": "Where to load the private part of the CA",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where to save the public part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where to save the private part of the certificate",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "user": {
                       "type": "string",
                       "title": "CockroachDB user name",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -1653,12 +1653,12 @@
                     "name": {
                       "type": "string",
                       "title": "Where to save the environment file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "variables": {
                       "type": "object",
                       "title": "Variables to insert into the environment file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "renew": {
                       "type": "boolean",
@@ -1688,7 +1688,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to save the populated moustache template",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "template": {
                       "type": "string",
@@ -1726,7 +1726,7 @@
                     "name": {
                       "type": "string",
                       "title": "Where to save the script text",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "text": {
                       "type": "string",
@@ -1760,17 +1760,17 @@
                     "age": {
                       "type": "string",
                       "title": "Age key with which the secrets will be encrypted",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "public": {
                       "type": "string",
                       "title": "Where the plaintext secrets will be stored",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "private": {
                       "type": "string",
                       "title": "Where the encrypted secrets will be stored",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "secrets": {
                       "type": "object",
@@ -1852,7 +1852,7 @@
                     "file": {
                       "type": "string",
                       "title": "File to export",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     }
                   }
                 }
@@ -1878,12 +1878,12 @@
                     "from": {
                       "type": "string",
                       "title": "From where to copy the generation file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     },
                     "to": {
                       "type": "string",
                       "title": "Where to put the generation file",
-                      "pattern": "^[A-Za-z0-9._:-]{1,128}$"
+                      "pattern": "^[A-Za-z0-9._:/\\\\-]{1,128}$"
                     }
                   }
                 }
