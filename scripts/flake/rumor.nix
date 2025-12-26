@@ -10,7 +10,7 @@ let
 
   shebang = ''#!${pkgs.nushell}/bin/nu --stdin'' + ''\n$env.PATH = "${lib.makeBinPath buildInputs}"'';
 
-  version = "3.0.0";
+  version = "1.1.2";
 in
 {
   flake.lib.rumor.mkBuildInputs =
