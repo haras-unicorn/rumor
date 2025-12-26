@@ -8,7 +8,7 @@ let main = $"($env.FILE_PWD)/main.nu"
 
 let schema = $"($env.FILE_PWD)/schema.json"
 
-let version = "3.0.0-dev"
+let version = "1.1.2-dev"
 
 let tools = [
   nu
