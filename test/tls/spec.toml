@@ -26,7 +26,7 @@ generator = "tls-leaf"
 [generations.arguments]
 common_name = "server-cert"
 organization = "My PKI"
-sans = ["example.com", "api.example.com", "192.168.1.10"]
+sans = ["example.com", "api.example.com", "192.168.1.10", "localhost"]
 ca_public = "tls-ca-pub"
 ca_private = "tls-ca-priv"
 serial = "tls-srl"
