@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.4] - 2026-03-10
+
+### Changed
+
+- fix sans not allowing localhost
+
 ## [1.1.3] - 2025-12-26
 
 ### Changed
