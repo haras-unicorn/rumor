@@ -1425,7 +1425,9 @@ def "main generate sops" [
 ]: nothing -> nothing {
   let values = rumor format read $values $format
 
-  let values = $values
+  let values = if ($values == {}) {
+    {} | to yaml
+  } else { $values
     | transpose key value
     | each { |secret|
         let raw = if ($secret.value | path exists) {
@@ -1441,6 +1443,7 @@ def "main generate sops" [
       }
     | transpose -r -d --ignore-titles
     | to yaml
+  }
 
   $values | rumor save $private $renew
 
